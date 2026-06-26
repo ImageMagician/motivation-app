@@ -22,7 +22,7 @@ class QuoteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'quote'  => ['required', 'string', 'max:500'],
+            'body'  => ['required', 'string', 'max:500'],
             'author' => ['required', 'string', 'max:255'],
         ]);
 
@@ -35,7 +35,7 @@ class QuoteController extends Controller
     public function update(Request $request, Quote $quote)
     {
         $validated = $request->validate([
-            'quote'  => ['required', 'string', 'max:500'],
+            'body'  => ['required', 'string', 'max:500'],
             'author' => ['required', 'string', 'max:255'],
         ]);
 
