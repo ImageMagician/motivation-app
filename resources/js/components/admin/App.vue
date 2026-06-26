@@ -1,9 +1,10 @@
 <script setup>
-
+    import { ref } from 'vue';
+    import Dashboard from './Dashboard.vue';
 </script>
 
 <template>
-  $END$
+
 </template>
 
 <style scoped>
