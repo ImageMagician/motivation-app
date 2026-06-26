@@ -42,7 +42,6 @@
         errors.value = {};
         try {
             if (editing.value) {
-                console.log('save v2', `${API}/${editing.value.id}`);
                 const { data } = await axios.put(`${API}/${editing.value.id}`, form.value);
                 const i = quotes.value.findIndex(q => q.id === data.id);
                 if (i !== -1) quotes.value[i] = data;
