@@ -7,8 +7,13 @@
     const editing = ref(null);
     const errors = ref({});
     const loading = ref(false);
+    const showForm = ref(false);
 
     const API = '/admin/subscribers';
+
+    async function toggleForm() {
+        showForm.value = !showForm.value;
+    }
 
     async function load() {
         loading.value = true;
@@ -68,13 +73,22 @@
 
 <template>
     <div class="dashboard max-w-4xl mx-auto py-20">
-        <h1 class="text-2xl font-bold mb-4">Subscribers</h1>
+        <div class="flex justify-between items-center gap-3 mb-3">
+            <h1 class="text-2xl font-bold mb-4">Subscribers</h1>
+            <button type="button"
+                    @click="toggleForm"
+                    class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+            >
+                Add Subscriber
+            </button>
+        </div>
 
         <SubscriberForm
             :editing="editing"
             :errors="errors"
             @save="save"
             @cancel="cancelEdit"
+            :class="showForm ? 'block' : 'hidden'"
             class="mb-8"
         />
 
