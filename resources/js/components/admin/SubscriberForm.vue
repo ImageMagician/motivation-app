@@ -1,33 +1,33 @@
 <script setup>
-import { ref, watch } from 'vue';
+    import { ref, watch } from 'vue';
 
-const props = defineProps({
-    editing: { type: Object, default: null },       // subscribers being edited, or null = "add" mode
-    errors: { type: Object, default: () => ({}) },  // validation errors being handed down
-});
+    const props = defineProps({
+        editing: { type: Object, default: null },       // subscribers being edited, or null = "add" mode
+        errors: { type: Object, default: () => ({}) },  // validation errors being handed down
+    });
 
-const emit = defineEmits(['save', 'cancel']);
+    const emit = defineEmits(['save', 'cancel']);
 
-const form = ref({
-    email: '',
-    name: '',
-    is_active: true
-});
+    const form = ref({
+        email: '',
+        name: '',
+        is_active: true
+    });
 
-// When the parent changes what's edited, reset the form to match
-watch(
-    () => props.editing,
-    (subscriber) => {
-        form.value = subscriber
-            ? { email: subscriber.email, name: subscriber.name ?? '', is_active: !!subscriber.is_active }
-            : { email: '', name: '', is_active: true };
-    },
-    { immediate: true }
-)
+    // When the parent changes what's edited, reset the form to match
+    watch(
+        () => props.editing,
+        (subscriber) => {
+            form.value = subscriber
+                ? { email: subscriber.email, name: subscriber.name ?? '', is_active: !!subscriber.is_active }
+                : { email: '', name: '', is_active: true };
+        },
+        { immediate: true }
+    )
 
-function submit() {
-    emit('save', { ...form.value});
-}
+    function submit() {
+        emit('save', { ...form.value});
+    }
 </script>
 
 <template>
