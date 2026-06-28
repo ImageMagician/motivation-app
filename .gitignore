@@ -5,3 +5,5 @@ cat > .gitignore << 'EOF'
 /vendor/
 /node_modules/
 EOF
+/.idea/
+/.git/
