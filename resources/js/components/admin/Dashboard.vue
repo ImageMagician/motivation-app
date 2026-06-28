@@ -2,12 +2,14 @@
     import { ref, onMounted } from 'vue';
     import axios from 'axios';
     import SubscriberForm from './SubscriberForm.vue';
+    import { useToast } from 'vue-toastification';
 
     const subscribers = ref([]);
     const editing = ref(null);
     const errors = ref({});
     const loading = ref(false);
     const showForm = ref(false);
+    const toast = useToast();
 
     const API = '/admin/subscribers';
 
@@ -42,14 +44,16 @@
                 const { data } = await axios.post(API, payload);
                 subscribers.value.unshift(data);                   // prepend the new one
             }
+            toast.success("Subscriber saved");
             toggleForm();
         }
         catch (e) {
             if (e.respons?.status === 422) {
                 errors.value = e.response.data.errors;              // hand validation errors to the form
+                toast.error(errors.value);
             }
             else {
-                alert('Something went wrong. Please try again later');
+                toast.error('Something went wrong. Please try again later');
             }
         }
     }
@@ -69,7 +73,8 @@
         if (!confirm(`Delete ${subscriber.email}?`)) return;
 
         await axios.delete(`${API}/${subscriber.id}`);
-        subscribers.value = subscribers.value.filter(s => s.id !== subscriber.email);
+        subscribers.value = subscribers.value.filter(s => s.email !== subscriber.email);
+        toast.success("Subscriber deleted");
     }
 </script>
 
