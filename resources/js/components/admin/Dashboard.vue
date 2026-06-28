@@ -42,6 +42,7 @@
                 const { data } = await axios.post(API, payload);
                 subscribers.value.unshift(data);                   // prepend the new one
             }
+            toggleForm();
         }
         catch (e) {
             if (e.respons?.status === 422) {
@@ -54,6 +55,7 @@
     }
 
     function edit(subscriber) {
+        toggleForm();
         editing.value = subscriber;
         errors.value = {};
     }
@@ -77,9 +79,9 @@
             <h1 class="text-2xl font-bold mb-4">Subscribers</h1>
             <button type="button"
                     @click="toggleForm"
-                    class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded"
+                    class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded cursor-pointer"
             >
-                Add Subscriber
+                {{ showForm ? 'Close' : 'Add Subscriber' }}
             </button>
         </div>
 
