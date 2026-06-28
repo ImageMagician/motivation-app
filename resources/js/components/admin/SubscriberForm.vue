@@ -31,7 +31,7 @@ function submit() {
 </script>
 
 <template>
-    <div class="form">
+    <div class="form border rounded p-4 border-gray-300 shadow-md">
         <h2 class="text-xl font-bold mb-4">{{ editing ? 'Edit Subscriber' : 'Add subscriber'}}</h2>
 
         <label class="block mb-2 mb-4">
