@@ -4,12 +4,12 @@
     import QuotesForm from './QuotesForm.vue';
     import { useToast } from 'vue-toastification';
 
-    const quotes = ref([]);
-    const editing = ref(null);
-    const errors = ref({});
-    const loading = ref(false);
+    const quotes   = ref([]);
+    const editing  = ref(null);
+    const errors   = ref({});
+    const loading  = ref(false);
     const showForm = ref(false);
-    const toast = useToast();
+    const toast    = useToast();
 
     async function toggleForm() {
         showForm.value
@@ -59,7 +59,6 @@
             closeForm();
         }
         catch (e) {
-            console.error(e);
             if (e.response?.status === 422) {
                 errors.value = e.response.data.errors;
             } else {
@@ -96,7 +95,7 @@
                 :editing="editing"
                 :errors="errors"
                 @save="save"
-                @cancel="closeForm()"
+                @cancel="closeForm"
                 class="mb-4"
             />
         </div>
