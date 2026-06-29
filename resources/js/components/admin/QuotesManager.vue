@@ -45,17 +45,20 @@
     }
 
     async function save(payload) {
+        let msg;
         errors.value = {};
         try {
             if (editing.value) {
                 const { data } = await axios.put(`${API}/${editing.value.id}`, payload);
                 const i = quotes.value.findIndex(q => q.id === data.id);
                 if (i !== -1) quotes.value[i] = data;
+                msg = 'Quote updated';
             } else {
                 const {data} = await axios.post(API, payload);
                 quotes.value.unshift(data);
+                msg = 'Quote added';
             }
-            toast.success('Quote saved');
+            toast.success(msg);
             closeForm();
         }
         catch (e) {
@@ -122,14 +125,14 @@
                         <td class="p-2 text-nowrap">{{ q.author }}</td>
                         <td class="p-2 text-nowrap">
                             <button
-                                class="border border-gray-500 hover:border-gray-700 text-sm px-4 py-1 me-2 rounded"
+                                class="border border-gray-400 hover:border-gray-700 text-sm px-4 py-1 me-2 rounded cursor-pointer"
                                 type="button"
                                 @click="edit(q)"
                             >
                                 Edit
                             </button>
                             <button
-                                class="border border-gray-500 hover:border-gray-700 text-sm px-4 py-1 me-2 rounded"
+                                class="border border-gray-400 hover:border-gray-700 text-sm px-4 py-1 me-2 rounded cursor-pointer"
                                 type="button"
                                 @click="remove(q)"
                             >
